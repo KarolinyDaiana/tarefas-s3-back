@@ -30,4 +30,9 @@ public class FileController {
     public ResponseEntity<String> verFile(@PathVariable Long idFile) {
         return new ResponseEntity<>(fileService.verFile(idFile), HttpStatusCode.valueOf(200));
     }
+
+    @DeleteMapping("/{idFile}")
+    public ResponseEntity<String> deletarFile(@PathVariable Long idFile) {
+        return new ResponseEntity<>(fileService.excluirFile(idFile), HttpStatusCode.valueOf(200));
+    }
 }

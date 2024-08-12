@@ -118,7 +118,7 @@ public class FileServiceImpl implements FileServiceInt {
                     .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                     .withRegion(Regions.US_EAST_1).build();
 
-            String fileRef = fileRepository.findById(id.intValue()).get().getRef();
+            String fileRef = fileRepository.findById(id).get().getRef();
 
             System.out.println(fileRef);
             if(fileRef == null) {
@@ -141,5 +141,10 @@ public class FileServiceImpl implements FileServiceInt {
             System.out.println("Erro comum: " + e.getMessage());
             return "Erro comum: " + e.getMessage();
         }
+    }
+
+    public String excluirFile(Long idFile) {
+        fileRepository.deleteById(idFile);
+        return "file excluido";
     }
 }

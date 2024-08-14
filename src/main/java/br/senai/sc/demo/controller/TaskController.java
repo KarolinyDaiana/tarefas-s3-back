@@ -33,7 +33,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> excluirTask(@PathVariable Long id) {
+    public ResponseEntity<Boolean> excluirTask(@PathVariable Long id) {
         return ResponseEntity.ok(taskService.excluirTask(id));
     }
 }

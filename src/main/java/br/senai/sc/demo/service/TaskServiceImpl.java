@@ -33,8 +33,8 @@ public class TaskServiceImpl implements TaskServiceInt {
         return taskRepository.findAll();
     }
 
-    public String excluirTask(Long id) {
+    public Boolean excluirTask(Long id) {
         taskRepository.deleteById(id);
-        return "A task de id " + id + "foi excluída";
+        return true;
     }
 }

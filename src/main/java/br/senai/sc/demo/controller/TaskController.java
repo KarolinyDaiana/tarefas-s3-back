@@ -1,9 +1,9 @@
 package br.senai.sc.demo.controller;
 
-import br.senai.sc.demo.controller.dto.ResponseTaskDto;
 import br.senai.sc.demo.controller.dto.TaskDto;
 import br.senai.sc.demo.model.Task;
 import br.senai.sc.demo.service.TaskServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/task")
+@AllArgsConstructor
 @CrossOrigin("*")
 public class TaskController {
 
-    public TaskController(TaskServiceImpl taskService) {
-        this.taskService = taskService;
-    }
     private final TaskServiceImpl taskService;
 
     @PostMapping("/novatask")

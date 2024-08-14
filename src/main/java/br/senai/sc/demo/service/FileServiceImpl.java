@@ -31,50 +31,28 @@ public class FileServiceImpl implements FileServiceInt {
     @Override
     public Boolean criarFile(Long idTask, MultipartFile multipartFile) {
         try {
-            /*
-            * Criação das variáveis que contém as chaves de acesso e o nome do bucket a ser utiliado.
-            * */
             String awsKeyId = config.getAccessKey();
             String awsSecretKey = config.getSecretKey();
             String bucketName = config.getBucketName();
 
-            /*
-            * Criação do UUID para a imagem, seguido da data e horário que foi criada.
-            * */
             String chave = UUID.randomUUID().toString();
             LocalDateTime data = LocalDateTime.now();
 
-            /*
-            * Variável task a partir do id passado pelo pathVariable.
-            * */
             Task task = taskRepository.findById(idTask).get();
-            /*
-            * Nova variável file, já com o UUID(chave), a data e a task.
-            * Então, o salvamento desta file na repository(banco) e na task correspondente.
-            * */
+
             File file = new File(null, chave, data, task);
             fileRepository.save(file);
             task.getFiles().add(file);
 
-            /*
-            * Pegando as credenciais para acesso na s3.
-            * */
             BasicAWSCredentials awsCredentials = new BasicAWSCredentials(awsKeyId, awsSecretKey);
 
-            /*
-             * Cliente criado com as credenciais.
-             * */
             AmazonS3 client = AmazonS3ClientBuilder.standard()
                     .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                     .withRegion(Regions.US_EAST_1).build();
 
-            /*
-             * Verificação da existência do bucket.
-             * */
             if(!client.doesBucketExistV2(bucketName)) {
                 return false;
             }
-
 //            InputStream inputStream = new StringInputStream(file.getRef());
 
 //            TransferManagerUtils fileTransfer = new TransferManagerUtils();
@@ -84,10 +62,8 @@ public class FileServiceImpl implements FileServiceInt {
 //                    .bucket(bucketName)
 //                    .key(awsKeyId)
 //                    .contentType(multipartFile.getContentType())
-//                    .build();
-            /*
-             *
-             * */
+//                    .build()
+            // precisa transformar para arquivo temporário pq precisa passar os bytes, não o arquivo!
             java.io.File novaFile = java.io.File.createTempFile(chave, multipartFile.getOriginalFilename());
             multipartFile.transferTo(novaFile);
             client.putObject(bucketName, chave, novaFile);
@@ -97,9 +73,6 @@ public class FileServiceImpl implements FileServiceInt {
 //            client.putObject(bucketName, chaveAws, multipartFile.getInputStream(), objectMetadata);
             return true;
 
-            /*
-             * Catches para as possíveis excessões.
-             * */
         } catch (AmazonS3Exception e) {
             System.out.println("Erro aws: " + e.getMessage());
             return false;
@@ -143,7 +116,9 @@ public class FileServiceImpl implements FileServiceInt {
         }
     }
 
+    @Override
     public String excluirFile(Long idFile) {
+
         fileRepository.deleteById(idFile);
         return "file excluido";
     }

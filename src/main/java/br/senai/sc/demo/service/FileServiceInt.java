@@ -9,5 +9,5 @@ import java.util.List;
 public interface FileServiceInt {
     Boolean criarFile(Long id, MultipartFile multipartFile);
     String verFile(Long idFile);
-
+    String excluirFile(Long idFile);
 }

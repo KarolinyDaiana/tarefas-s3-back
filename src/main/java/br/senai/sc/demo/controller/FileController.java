@@ -1,24 +1,18 @@
 package br.senai.sc.demo.controller;
 
-import br.senai.sc.demo.controller.dto.FileDto;
-import br.senai.sc.demo.model.File;
 import br.senai.sc.demo.service.FileServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/file")
+@AllArgsConstructor
 @CrossOrigin("*")
 public class FileController {
 
-    public FileController(FileServiceImpl fileService) {
-        this.fileService = fileService;
-    }
     private final FileServiceImpl fileService;
 
     @PostMapping("/{idTask}")

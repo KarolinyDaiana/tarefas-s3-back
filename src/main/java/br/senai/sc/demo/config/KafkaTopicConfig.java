@@ -23,8 +23,8 @@ public class KafkaTopicConfig {
         return new KafkaAdmin(configs);
     }
 
-    @Bean
-    public NewTopic topic1() {
-        return new NewTopic("baeldung", 1, (short) 1);
-    }
+//    @Bean
+//    public NewTopic topic1() {
+//        return new NewTopic("topico_novo_karol", 1, (short) 1);
+//    }
 }

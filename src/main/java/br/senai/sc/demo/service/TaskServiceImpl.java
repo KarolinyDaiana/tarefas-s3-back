@@ -6,6 +6,7 @@ import br.senai.sc.demo.model.Task;
 import br.senai.sc.demo.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +16,13 @@ import java.util.List;
 public class TaskServiceImpl implements TaskServiceInt {
 
     private final TaskRepository taskRepository;
+    private final KafkaTemplate<String, TaskDto> kafkaTemplate;
 
     @Override
     public Task criarTask(TaskDto taskDto) {
         Task task = new Task(taskDto.nome(), null);
+        System.out.println("Enviando mensagem ao tópico my_topic_karol:" + taskDto.nome());
+        kafkaTemplate.send("topico_novo_karol", taskDto);
         taskRepository.save(task);
         return task;
     }

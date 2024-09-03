@@ -39,11 +39,6 @@ public class TaskController {
         return ResponseEntity.ok(taskService.verTodas());
     }
 
-//    @GetMapping()
-//    public ResponseEntity<Void> vertTaskKafka() {
-//        return ResponseEntity.ok(kafkaListener.listen(new TaskDto("Sasas")));
-//    }
-
     @org.springframework.kafka.annotation.KafkaListener(topics = "topico_novo_karol")
 //    public void listen(TaskDto taskDto) {
 //        System.out.println("Mensagem recebida: " + taskDto.nome());

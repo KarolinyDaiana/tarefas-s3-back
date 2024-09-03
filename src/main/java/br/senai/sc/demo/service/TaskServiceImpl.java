@@ -41,8 +41,4 @@ public class TaskServiceImpl implements TaskServiceInt {
         taskRepository.deleteById(id);
         return true;
     }
-
-    public List<Task> verKafka() {
-        return null;
-    }
 }

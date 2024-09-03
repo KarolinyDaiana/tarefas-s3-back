@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaListener {
 
-    @org.springframework.kafka.annotation.KafkaListener(topics = "topico_novo_karol", containerFactory = "kafkaListenerContainerFactory")
-    public void listen(TaskDto taskDto) {
-        System.out.println("Mensagem recebida: " + taskDto.nome());
-    }
+//    @org.springframework.kafka.annotation.KafkaListener(topics = "topico_novo_karol")
+//    //, containerFactory = "kafkaListenerContainerFactory"
+//    public void listen(TaskDto taskDto) {
+//        System.out.println("Task criada com sucesso: " + taskDto);
+//    }
 
 }

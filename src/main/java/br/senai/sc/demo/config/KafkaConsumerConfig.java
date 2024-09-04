@@ -3,7 +3,9 @@ package br.senai.sc.demo.config;
 import br.senai.sc.demo.controller.dto.TaskDto;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +43,10 @@ public class KafkaConsumerConfig {
         props.put(org.springframework.kafka.support.serializer.JsonDeserializer.VALUE_DEFAULT_TYPE, TaskDto.class.getName());
 
         return new DefaultKafkaConsumerFactory<>(props);
+    }
+    @Bean
+    public Consumer<String, TaskDto> consumer() {
+        return new KafkaConsumer<>(consumerFactory().getConfigurationProperties());
     }
 
     @Bean
